@@ -5,7 +5,6 @@ import { API_URL } from "../config/api.config";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import Box from '@mui/material/Box';
 import { adminResources, eventPlannerResources, vendorResources, userResources } from './layout/resources';
-import Dashboard from "./pages/Dashboard";
 
 const dataProvider = simpleRestProvider(API_URL);
 
@@ -36,7 +35,7 @@ const AdminPanel = () => {
     }, 1000);
   
     const role = localStorage.getItem('userRole');
-    setUserRole(role || 'user'); 
+    setUserRole(role || 'event-planner'); 
     
     return () => clearTimeout(loadingTimer);
   }, []);

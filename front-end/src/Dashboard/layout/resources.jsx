@@ -8,7 +8,9 @@ import VendorIcon from '@mui/icons-material/Store';
 import ChartIcon from '@mui/icons-material/BarChart';
 
 // Import components from the pages folder
-import Dashboard from '../pages/Dashboard';
+import AdminDashboard from '../pages/dashbordPage/AdminDashboard';
+import VendorDashboard from '../pages/dashbordPage/VendorDashboard';
+import EventPlannerDashboard from '../pages/dashbordPage/eventPlannerDashbord';
 import EventChart from '../pages/EventChart';
 
 // Import Event Planner components
@@ -37,7 +39,7 @@ export const adminResources = [
     name: 'dashboard',
     label: 'Dashboard',
     icon: DashboardIcon,
-    list: Dashboard,
+    list: AdminDashboard,
   },
   {
     name: 'event-planner',
@@ -62,7 +64,7 @@ export const eventPlannerResources = [
     name: 'dashboard',
     label: 'Dashboard',
     icon: DashboardIcon,
-    list: Dashboard,
+    list: EventPlannerDashboard,
   },
   {
     name: 'vendor',
@@ -89,7 +91,7 @@ export const vendorResources = [
     name: 'dashboard',
     label: 'Dashboard',
     icon: DashboardIcon,
-    list: Dashboard,
+    list: VendorDashboard,
   },
   {
     name: 'events',
@@ -114,7 +116,7 @@ export const userResources = [
     name: 'dashboard',
     label: 'Dashboard',
     icon: DashboardIcon,
-    list: Dashboard,
+    list: AdminDashboard,
   },
   {
     name: 'event-cart',
@@ -128,5 +130,6 @@ export const userResources = [
     icon: PasswordIcon,
     list: PasswordEdit,
   }
+  // transaction hitory
 ];
 

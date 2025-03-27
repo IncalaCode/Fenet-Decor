@@ -106,7 +106,7 @@ const PackageCard = ({ packageData, onSelect }) => {
         <div className={`transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           <button 
             onClick={() => onSelect(packageData)}
-            className={`w-full py-2 px-4 ${colors.bg} ${colors.text} border ${colors.border} rounded-md ${colors.hover} transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-wedding-purple focus:ring-opacity-50 font-medium`}
+            className={`w-full py-2 px-4 ${colors.bg} P${colors.text} border ${colors.border} rounded-md ${colors.hover} transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-wedding-purple focus:ring-opacity-50 font-medium`}
           >
             Select Package
           </button>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCartContext } from './CartContext';
@@ -10,6 +11,7 @@ const CartModal = ({ isOpen, onClose }) => {
   
   const handleContinueShopping = () => {
     onClose();
+    navigate("/")
   };
   
   const handleCheckout = () => {
@@ -66,22 +68,19 @@ const CartModal = ({ isOpen, onClose }) => {
                     </div>
                     
                     <div className="mt-6">
-                      <h4 className="font-medium mb-2">Payment Options:</h4>
-                      <div className="flex space-x-4">
-                        <div className="border rounded p-2 flex-1 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-blue-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10V8H22V10H2ZM2 16V14H22V16H2Z" />
-                          </svg>
-                        </div>
-                        <div className="border rounded p-2 flex-1 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-yellow-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" />
-                          </svg>
-                        </div>
-                        <div className="border rounded p-2 flex-1 flex items-center justify-center">
-                          <svg className="w-8 h-8 text-red-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" />
-                          </svg>
+                      <h4 className="font-medium mb-2">Payment Option:</h4>
+                      <div className="border rounded p-3 flex items-center justify-center">
+                        <div className="flex flex-col items-center">
+                          <img 
+                            src="/chapa-logo.png" 
+                            alt="Chapa Payment" 
+                            className="h-10 object-contain"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "https://chapa.co/assets/images/chapa_logo.svg";
+                            }}
+                          />
+                          <span className="text-sm font-medium mt-1">Pay with Chapa</span>
                         </div>
                       </div>
                     </div>
@@ -91,10 +90,10 @@ const CartModal = ({ isOpen, onClose }) => {
             </div>
           </div>
           
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="bg-gray-50 px-4 py-3 sm:px-6  sm:flex sm:flex-row-reverse">
             <button
               type="button"
-              className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-wedding-purple text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wedding-purple sm:ml-3 sm:w-auto sm:text-sm ${cartItems.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-wedding-purple text-base font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wedding-purple sm:ml-3 sm:w-auto sm:text-sm ${cartItems.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleCheckout}
               disabled={cartItems.length === 0}
             >
@@ -102,7 +101,7 @@ const CartModal = ({ isOpen, onClose }) => {
             </button>
             <button
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wedding-purple sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wedding-purple sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
               onClick={handleContinueShopping}
             >
               Continue Shopping
