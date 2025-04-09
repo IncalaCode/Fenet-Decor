@@ -45,6 +45,7 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register-vendor" element={<SignUp />} />
         <Route path="/services/*" element={<DetailsPage />} />
         <Route path="/vendor/:id" element={<Vendor/>} />
 

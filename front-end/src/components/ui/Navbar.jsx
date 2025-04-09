@@ -6,6 +6,32 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visibleItems, setVisibleItems] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+
+  // Resources for different roles
+  const adminResources = [
+    { name: "Dashboard", url: "/dashboard" },
+  ];
+
+  const eventPlannerResources = [
+    { name: "Dashboard", url: "/dashboard" },
+  ];
+
+  const vendorResources = [
+    { name: "Dashboard", url: "/dashboard" },
+  ];
+
+  const userResources = [
+    { name: "Dashboard", url: "/dashboard" },
+  ];
+
+  const AddtionalItems = {
+    'admin': adminResources,
+    'event-planner': eventPlannerResources,
+    'vendor': vendorResources,
+    'user': userResources
+  };
 
   const handleClick = (e, itemName) => {
     e.preventDefault();
@@ -16,19 +42,43 @@ const Navbar = () => {
     }
   };
 
-  const navbarItems = [
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    setIsAuthenticated(false);
+    setUserRole(null);
+    window.location.href = '/';
+  };
+
+  const publicNavItems = [
     { name: "Home", url: "/" },
     { name: "About Us", url: "/About-us" },
     { name: "Service", to: "services", function: handleClick },
     { name: "Testimonal", url: "/Testimonal" },
     { name: "Contact", url: "/contact" },
-    { name: "Sign Up", url: "/sign-up" },
   ];
 
-  // Check for visible items based on IDs
+  useEffect(() => {
+    const role = localStorage.getItem('userRole');
+    if (role) {
+      setIsAuthenticated(true);
+      setUserRole(role);
+    }
+  }, []);
+
   useEffect(() => {
     const checkVisibleItems = () => {
-      const items = navbarItems
+      let items = [...publicNavItems];
+      
+      if (isAuthenticated && userRole) {
+        items = [...items, ...(AddtionalItems[userRole] || [])];
+      } else {
+        items = [...items, 
+          { name: "Sign Up", url: "/sign-up" }
+        ];
+      }
+
+      const filteredItems = items
         .map((item) => {
           if (item.to) {
             return document.getElementById(item.to) ? item : null;
@@ -36,13 +86,14 @@ const Navbar = () => {
           return item;
         })
         .filter(Boolean);
-      setVisibleItems(items);
+
+      setVisibleItems(filteredItems);
     };
 
     checkVisibleItems();
     window.addEventListener("resize", checkVisibleItems);
     return () => window.removeEventListener("resize", checkVisibleItems);
-  }, []);
+  }, [isAuthenticated, userRole]);
 
   // Scroll effect
   useEffect(() => {
@@ -119,12 +170,19 @@ const Navbar = () => {
                   </a>
                 </motion.li>
               ))}
-              <Button
-                text="Login"
-                onClick={() => {
-                  window.location.href = "/login";
-                }}
-              />
+              {isAuthenticated ? (
+                <Button
+                  text="Logout"
+                  onClick={handleLogout}
+                />
+              ) : (
+                <Button
+                  text="Login"
+                  onClick={() => {
+                    window.location.href = "/login";
+                  }}
+                />
+              )}
             </ul>
           </div>
 
@@ -200,7 +258,11 @@ const Navbar = () => {
                   transition={{ delay: visibleItems.length * 0.05 }}
                   className="px-4 py-3"
                 >
-                  <Button text="Login" href="/login" fullWidth={true} />
+                  {isAuthenticated ? (
+                    <Button text="Logout" onClick={handleLogout} fullWidth={true} />
+                  ) : (
+                    <Button text="Login" onClick={() => window.location.href = "/login"} fullWidth={true} />
+                  )}
                 </motion.div>
               </div>
             </motion.div>

@@ -128,6 +128,12 @@ const SignUpForm = () => {
               Sign In
             </a>
           </p>
+          <p className="text-sm text-gray-600">
+              Want to become a vendor?{" "}
+              <a href="/register-vendor" className="text-purple-600 hover:text-purple-800 font-medium">
+                Register as Vendor
+              </a>
+            </p>
         </div>
       </form>
     </>

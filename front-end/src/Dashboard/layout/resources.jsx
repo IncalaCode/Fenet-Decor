@@ -6,33 +6,43 @@ import EventIcon from '@mui/icons-material/Event';
 import PasswordIcon from '@mui/icons-material/Password';
 import VendorIcon from '@mui/icons-material/Store';
 import ChartIcon from '@mui/icons-material/BarChart';
+import user from '@mui/icons-material/Person';
+import feedback from '@mui/icons-material/Feedback';
+import payemnt from '@mui/icons-material/Payment';
 
 // Import components from the pages folder
-import AdminDashboard from '../pages/dashbordPage/AdminDashboard';
-import VendorDashboard from '../pages/dashbordPage/VendorDashboard';
-import EventPlannerDashboard from '../pages/dashbordPage/eventPlannerDashbord';
-import EventChart from '../pages/EventChart';
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import VendorDashboard from '../pages/vendor/VendorDashboard';
+import EventPlannerDashboard from '../pages/eventplanner/eventPlannerDashbord';
+import EventChart from '../pages/user/EventChart';
 
 // Import Event Planner components
-import EventPlannerList from '../pages/EventPlanner/EventPlannerList';
-import EventPlannerEdit from '../pages/EventPlanner/EventPlannerEdit';
-import EventPlannerCreate from '../pages/EventPlanner/EventPlannerCreate';
-import EventPlannerShow from '../pages/EventPlanner/EventPlannerShow';
+import EventPlannerList from '../pages/admin/EventPlanner/EventPlannerList';
+import EventPlannerEdit from '../pages/admin/EventPlanner/EventPlannerEdit';
+import EventPlannerCreate from '../pages/admin/EventPlanner/EventPlannerCreate';
+import EventPlannerShow from '../pages/admin/EventPlanner/EventPlannerShow';
 
 // Import Password components
-import PasswordEdit from '../pages/Password/PasswordEdit';
+import AdminPasswordEdit from '../pages/admin/Password/PasswordEdit';
+import userPasswordEdit from '../pages/user/Password/PasswordEdit';
+import eventplannerPasswordEdit from '../pages/eventplanner/Password/PasswordEdit'
+import vendorPasswordEdit from '../pages/vendor/Password/PasswordEdit';;
 
 // Import Vendor components
-import VendorList from '../pages/Vendor/VendorList';
-import VendorEdit from '../pages/Vendor/VendorEdit';
-import VendorCreate from '../pages/Vendor/VendorCreate';
-import VendorShow from '../pages/Vendor/VendorShow';
+import VendorList from '../pages/admin/Vendor/VendorList';
+import VendorEdit from '../pages/admin/Vendor/VendorEdit';
+import VendorCreate from '../pages/admin/Vendor/VendorCreate';
+import VendorShow from '../pages/admin/Vendor/VendorShow';
 
 // Import Events components
-import EventsList from '../pages/Events/EventsList';
-import EventsEdit from '../pages/Events/EventsEdit';
-import EventsCreate from '../pages/Events/EventsCreate';
-import EventsShow from '../pages/Events/EventsShow';
+import EventsList from '../pages/vendor/Events/EventsList';
+import EventsEdit from '../pages/vendor/Events/EventsEdit';
+import EventsCreate from '../pages/vendor/Events/EventsCreate';
+import EventsShow from '../pages/vendor/Events/EventsShow';
+import userCreate from '../pages/admin/user/userCreate';
+import userEdit from '../pages/admin/user/userEdit';
+import userList from '../pages/admin/user/userList';
+import feedbackList from '../pages/admin/feedback/feedbacklist';
 
 export const adminResources = [
   {
@@ -51,10 +61,39 @@ export const adminResources = [
     show: EventPlannerShow,
   },
   {
+    name: 'vendor',
+    label: 'Vendor',
+    icon: VendorIcon,
+    list: VendorList,
+    edit: VendorEdit,
+    create: VendorCreate,
+    show: VendorShow,
+  },
+  {
+    name: 'user',
+    label: 'user',
+    icon: user,
+    list: userList,
+    edit: userEdit,
+    create: userCreate,
+  },
+  {
+    name: 'feedback',
+    label: 'Feedback',
+    icon: feedback,
+    list: feedbackList,
+  },
+  {
+    name: 'payemnt',
+    label: 'Payemnt',
+    icon: payemnt,
+    list: feedbackList,
+  },
+  {
     name: 'password',
     label: 'Password',
     icon: PasswordIcon,
-    list: PasswordEdit,
+    list: AdminPasswordEdit,
   }
 ];
 
@@ -67,21 +106,10 @@ export const eventPlannerResources = [
     list: EventPlannerDashboard,
   },
   {
-    name: 'vendor',
-    label: 'Vendor',
-    icon: VendorIcon,
-    list: VendorList,
-    edit: VendorEdit,
-    create: VendorCreate,
-    show: VendorShow,
-  },
-
-  // aproval and aigin and subaccount 
-  {
     name: 'password',
     label: 'Password',
     icon: PasswordIcon,
-    list: PasswordEdit,
+    list: eventplannerPasswordEdit,
   }
 ];
 
@@ -106,7 +134,7 @@ export const vendorResources = [
     name: 'password',
     label: 'Password',
     icon: PasswordIcon,
-    list: PasswordEdit,
+    list: vendorPasswordEdit,
   }
 ];
 
@@ -128,7 +156,7 @@ export const userResources = [
     name: 'password',
     label: 'Password',
     icon: PasswordIcon,
-    list: PasswordEdit,
+    list: userPasswordEdit,
   }
   // transaction hitory
 ];

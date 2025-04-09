@@ -1,12 +1,15 @@
 import React from 'react';
 import SignUpForm from '../components/auth/SignUpForm';
+import RegisterVendor from '../components/auth/RegisterVendor';
 import { ToastContainer } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaHome } from 'react-icons/fa';
 
 const SignUp = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isVendorRegistration = location.pathname === '/register-vendor';
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <ToastContainer />
@@ -32,12 +35,18 @@ const SignUp = () => {
         {/* Quote Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-12">
           <div className="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg max-w-md">
-            <h2 className="text-3xl font-[Playwrite US Trad] text-purple-800 mb-4">Begin Your Journey</h2>
+            <h2 className="text-3xl font-[Playwrite US Trad] text-purple-800 mb-4">
+              {isVendorRegistration ? 'Join Our Vendor Community' : 'Begin Your Journey'}
+            </h2>
             <p className="text-gray-700 italic">
-              "The best and most beautiful things in this world cannot be seen or even heard, 
-              but must be felt with the heart."
+              {isVendorRegistration 
+                ? "Showcase your services and be part of creating unforgettable wedding experiences."
+                : "The best and most beautiful things in this world cannot be seen or even heard, but must be felt with the heart."
+              }
             </p>
-            <p className="mt-2 text-gray-600 font-semibold">— Helen Keller</p>
+            <p className="mt-2 text-gray-600 font-semibold">
+              {isVendorRegistration ? '— Wedding Bliss Team' : '— Helen Keller'}
+            </p>
           </div>
         </div>
       </div>
@@ -46,11 +55,18 @@ const SignUp = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 bg-white">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">Create an Account</h1>
-            <p className="text-gray-600 mt-2">Join us to plan your perfect wedding</p>
+            <h1 className="text-3xl font-bold text-gray-800">
+              {isVendorRegistration ? 'Vendor Registration' : 'Create an Account'}
+            </h1>
+            <p className="text-gray-600 mt-2">
+              {isVendorRegistration 
+                ? 'Register your business and reach more couples'
+                : 'Join us to plan your perfect wedding'
+              }
+            </p>
           </div>
           
-          <SignUpForm />
+          {isVendorRegistration ? <RegisterVendor /> : <SignUpForm />}
         </div>
       </div>
     </div>

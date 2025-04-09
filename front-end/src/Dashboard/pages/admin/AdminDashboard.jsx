@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
@@ -18,7 +17,9 @@ import {
   ListItemIcon,
   Button,
   Avatar,
-  CircularProgress
+  CircularProgress,
+  Rating,
+  Chip
 } from '@mui/material';
 
 // Icons
@@ -35,6 +36,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import CommentIcon from '@mui/icons-material/Comment';
 
 // Styled components
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -78,30 +86,39 @@ const getMockMetrics = () => {
       change: 5.8,
       increasing: true
     },
-    events: {
-      total: 348,
-      change: 12.3,
-      increasing: true
-    },
     vendors: {
       total: 86,
       change: -2.1,
       increasing: false
     },
-    revenue: {
-      total: '$128,450',
-      change: 8.4,
+    eventPlanners: {
+      total: 124,
+      change: 7.3,
+      increasing: true
+    },
+    activeBookings: {
+      total: 348,
+      change: 12.3,
       increasing: true
     }
   };
 };
 
-const getMockRecentEvents = () => {
+const getMockPaymentsHistory = () => {
   return [
-    { id: 1, title: 'Johnson Wedding', date: '2023-08-15', status: 'Confirmed' },
-    { id: 2, title: 'Corporate Gala', date: '2023-08-18', status: 'Pending' },
-    { id: 3, title: 'Smith Anniversary', date: '2023-08-21', status: 'Confirmed' },
-    { id: 4, title: 'Charity Fundraiser', date: '2023-08-25', status: 'Planning' },
+    { id: 1, user: 'John Smith', amount: '$450.00', date: '2023-08-15', status: 'Completed', event: 'Wedding Reception' },
+    { id: 2, user: 'Sarah Johnson', amount: '$1,200.00', date: '2023-08-14', status: 'Completed', event: 'Corporate Event' },
+    { id: 3, user: 'Michael Brown', amount: '$350.00', date: '2023-08-12', status: 'Pending', event: 'Birthday Party' },
+    { id: 4, user: 'Emily Davis', amount: '$800.00', date: '2023-08-10', status: 'Completed', event: 'Anniversary Celebration' },
+  ];
+};
+
+const getMockFeedback = () => {
+  return [
+    { id: 1, user: 'Jessica Williams', rating: 5, comment: 'Amazing service! The event was perfect.', date: '2023-08-14' },
+    { id: 2, user: 'Robert Taylor', rating: 4, comment: 'Great experience overall. Would recommend.', date: '2023-08-13' },
+    { id: 3, user: 'Amanda Miller', rating: 5, comment: 'Exceeded our expectations. Thank you!', date: '2023-08-11' },
+    { id: 4, user: 'David Wilson', rating: 3, comment: 'Good service but some delays in communication.', date: '2023-08-09' },
   ];
 };
 
@@ -109,13 +126,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState(null);
-  const [recentEvents, setRecentEvents] = useState([]);
+  const [paymentsHistory, setPaymentsHistory] = useState([]);
+  const [feedback, setFeedback] = useState([]);
 
   // Simulate data loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setMetrics(getMockMetrics());
-      setRecentEvents(getMockRecentEvents());
+      setPaymentsHistory(getMockPaymentsHistory());
+      setFeedback(getMockFeedback());
       setLoading(false);
     }, 1000);
 
@@ -156,39 +175,15 @@ const Dashboard = () => {
             Welcome back, Admin
           </Typography>
         </Box>
-        
-        {/* <Box>
-          <IconButton>
-            <NotificationsIcon />
-          </IconButton>
-          <IconButton>
-            <SettingsIcon />
-          </IconButton>
-        </Box> */}
       </DashboardHeader>
-
-      {/* Quick action buttons */}
-      {/* <Box mb={4} display="flex" flexWrap="wrap">
-        <QuickActionButton variant="contained" color="primary" startIcon={<EventIcon />}>
-          Create Event
-        </QuickActionButton>
-        <QuickActionButton variant="contained" color="secondary" startIcon={<PersonAddIcon />}>
-          Add User
-        </QuickActionButton>
-        <QuickActionButton variant="contained" color="info" startIcon={<BusinessCenterIcon />}>
-          Manage Vendors
-        </QuickActionButton>
-        <QuickActionButton variant="outlined" startIcon={<CalendarMonthIcon />}>
-          View Calendar
-        </QuickActionButton>
-      </Box> */}
 
       {/* Metrics Grid */}
       <Typography variant="h6" gutterBottom>
         Key Metrics
       </Typography>
       <Grid container spacing={3} mb={4}>
-        <Grid item xs={12} sm={6} lg={3}>
+        {/* Total Users */}
+        <Grid item xs={12} sm={6} md={3}>
           <MetricCard>
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -219,43 +214,14 @@ const Dashboard = () => {
             </CardContent>
           </MetricCard>
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
+
+        {/* Vendors */}
+        <Grid item xs={12} sm={6} md={3}>
           <MetricCard>
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography color="text.secondary" gutterBottom>
-                  Total Events
-                </Typography>
-                <Avatar sx={{ bgcolor: 'secondary.main' }}>
-                  <EventIcon />
-                </Avatar>
-              </Box>
-              <Typography variant="h4" component="div">
-                {metrics.events.total}
-              </Typography>
-              <Box display="flex" alignItems="center" mt={1}>
-                {metrics.events.increasing ? (
-                  <ArrowUpwardIcon fontSize="small" color="success" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="small" color="error" />
-                )}
-                <Typography 
-                  variant="body2" 
-                  color={metrics.events.increasing ? "success.main" : "error.main"}
-                  ml={0.5}
-                >
-                  {metrics.events.change}%
-                </Typography>
-              </Box>
-            </CardContent>
-          </MetricCard>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <MetricCard>
-            <CardContent>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography color="text.secondary" gutterBottom>
-                  Active Vendors
+                  Vendors
                 </Typography>
                 <Avatar sx={{ bgcolor: 'info.main' }}>
                   <BusinessCenterIcon />
@@ -281,32 +247,67 @@ const Dashboard = () => {
             </CardContent>
           </MetricCard>
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
+
+        {/* Event Planners */}
+        <Grid item xs={12} sm={6} md={3}>
           <MetricCard>
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography color="text.secondary" gutterBottom>
-                  Total Revenue
+                  Event Planners
                 </Typography>
-                <Avatar sx={{ bgcolor: 'success.main' }}>
-                  <AttachMoneyIcon />
+                <Avatar sx={{ bgcolor: 'secondary.main' }}>
+                  <EventAvailableIcon />
                 </Avatar>
               </Box>
               <Typography variant="h4" component="div">
-                {metrics.revenue.total}
+                {metrics.eventPlanners.total}
               </Typography>
               <Box display="flex" alignItems="center" mt={1}>
-                {metrics.revenue.increasing ? (
+                {metrics.eventPlanners.increasing ? (
                   <ArrowUpwardIcon fontSize="small" color="success" />
                 ) : (
                   <ArrowDownwardIcon fontSize="small" color="error" />
                 )}
                 <Typography 
                   variant="body2" 
-                  color={metrics.revenue.increasing ? "success.main" : "error.main"}
+                  color={metrics.eventPlanners.increasing ? "success.main" : "error.main"}
                   ml={0.5}
                 >
-                  {metrics.revenue.change}%
+                  {metrics.eventPlanners.change}%
+                </Typography>
+              </Box>
+            </CardContent>
+          </MetricCard>
+        </Grid>
+
+        {/* Active Bookings */}
+        <Grid item xs={12} sm={6} md={3}>
+          <MetricCard>
+            <CardContent>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography color="text.secondary" gutterBottom>
+                  Active Bookings
+                </Typography>
+                <Avatar sx={{ bgcolor: 'warning.main' }}>
+                  <BookOnlineIcon />
+                </Avatar>
+              </Box>
+              <Typography variant="h4" component="div">
+                {metrics.activeBookings.total}
+              </Typography>
+              <Box display="flex" alignItems="center" mt={1}>
+                {metrics.activeBookings.increasing ? (
+                  <ArrowUpwardIcon fontSize="small" color="success" />
+                ) : (
+                  <ArrowDownwardIcon fontSize="small" color="error" />
+                )}
+                <Typography 
+                  variant="body2" 
+                  color={metrics.activeBookings.increasing ? "success.main" : "error.main"}
+                  ml={0.5}
+                >
+                  {metrics.activeBookings.change}%
                 </Typography>
               </Box>
             </CardContent>
@@ -314,12 +315,13 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      {/* Recent Events and Tasks */}
+      {/* Payments History and Feedback */}
       <Grid container spacing={3}>
+        {/* Payments History */}
         <Grid item xs={12} md={6}>
           <StyledCard>
             <CardHeader 
-              title="Recent Events" 
+              title="Payments History" 
               action={
                 <IconButton aria-label="settings">
                   <MoreVertIcon />
@@ -329,16 +331,22 @@ const Dashboard = () => {
             <Divider />
             <CardContent sx={{ flexGrow: 1 }}>
               <List>
-                {recentEvents.map((event) => (
-                  <ListItem key={event.id} divider>
+                {paymentsHistory.map((payment) => (
+                  <ListItem key={payment.id} divider>
                     <ListItemIcon>
-                      <EventIcon color={event.status === 'Confirmed' ? 'success' : 'primary'} />
+                      <PaymentsIcon color={payment.status === 'Completed' ? 'success' : 'warning'} />
                     </ListItemIcon>
                     <ListItemText 
-                      primary={event.title} 
-                      secondary={`${event.date} • ${event.status}`}
+                      primary={`${payment.user} - ${payment.amount}`} 
+                      secondary={`${payment.date} • ${payment.event}`}
                     />
-                    <Button size="small" variant="outlined">View</Button>
+                    <Chip 
+                      label={payment.status} 
+                      color={payment.status === 'Completed' ? 'success' : 'warning'}
+                      size="small"
+                      sx={{ mr: 1 }}
+                    />
+                    <Button size="small" variant="outlined">Details</Button>
                   </ListItem>
                 ))}
               </List>
@@ -347,17 +355,19 @@ const Dashboard = () => {
               <Button 
                 variant="text" 
                 color="primary" 
-                onClick={() => navigate('/events')}
+                onClick={() => navigate('/dashboard/payments')}
               >
-                View All Events
+                View All Payments
               </Button>
             </Box>
           </StyledCard>
         </Grid>
+
+        {/* Feedback */}
         <Grid item xs={12} md={6}>
           <StyledCard>
             <CardHeader 
-              title="Pending Tasks" 
+              title="Recent Feedback" 
               action={
                 <IconButton aria-label="settings">
                   <MoreVertIcon />
@@ -367,55 +377,37 @@ const Dashboard = () => {
             <Divider />
             <CardContent sx={{ flexGrow: 1 }}>
               <List>
-                <ListItem divider>
-                  <ListItemIcon>
-                    <TaskIcon color="warning" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="Review vendor applications" 
-                    secondary="3 new applications"
-                  />
-                  <Button size="small" variant="contained" color="primary">Review</Button>
-                </ListItem>
-                <ListItem divider>
-                  <ListItemIcon>
-                    <TaskIcon color="info" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="Approve event requests" 
-                    secondary="5 pending requests"
-                  />
-                  <Button size="small" variant="contained" color="primary">Approve</Button>
-                </ListItem>
-                <ListItem divider>
-                  <ListItemIcon>
-                    <TaskIcon color="error" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="Update pricing packages" 
-                    secondary="Due: Today"
-                  />
-                  <Button size="small" variant="contained" color="primary">Update</Button>
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <TaskIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary="Send welcome emails" 
-                    secondary="8 new users"
-                  />
-                  <Button size="small" variant="contained" color="primary">Send</Button>
-                </ListItem>
+                {feedback.map((item) => (
+                  <ListItem key={item.id} divider>
+                    <ListItemIcon>
+                      <FeedbackIcon color={item.rating >= 4 ? 'success' : item.rating >= 3 ? 'warning' : 'error'} />
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary={item.user} 
+                      secondary={
+                        <Box>
+                          <Rating value={item.rating} readOnly size="small" sx={{ mb: 0.5 }} />
+                          <Typography variant="body2" color="text.secondary">
+                            "{item.comment}"
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {item.date}
+                          </Typography>
+                        </Box>
+                      }
+                    />
+                    <Button size="small" variant="outlined">Reply</Button>
+                  </ListItem>
+                ))}
               </List>
             </CardContent>
             <Box p={2} display="flex" justifyContent="center">
               <Button 
                 variant="text" 
                 color="primary" 
-                onClick={() => navigate('/tasks')}
+                onClick={() => navigate('/dashboard/feedback')}
               >
-                View All Tasks
+                View All Feedback
               </Button>
             </Box>
           </StyledCard>
