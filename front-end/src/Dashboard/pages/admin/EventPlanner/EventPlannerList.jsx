@@ -18,8 +18,6 @@ const EventPlannerList = () => {
         <TextField source="name" />
         <EmailField source="email" />
         <TextField source="phone" />
-        <DateField source="createdAt" />
-        <BooleanField source="isActive" />
         <EditButton />
         <ShowButton />
       </Datagrid>

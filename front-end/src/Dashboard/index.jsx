@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Admin, Resource, CustomRoutes } from "react-admin";
-import simpleRestProvider from "ra-data-simple-rest";
-import { API_URL } from "../config/api.config";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import Box from '@mui/material/Box';
 import { adminResources, eventPlannerResources, vendorResources, userResources } from './layout/resources';
-
-const dataProvider = simpleRestProvider(API_URL);
+import dataProvider from './dataProvider/testDataProvider';
 
 // Custom loader component only to hide the admin panel while loading
 const Loader = () => (
@@ -35,7 +32,7 @@ const AdminPanel = () => {
     }, 1000);
   
     const role = localStorage.getItem('userRole');
-    setUserRole(role || 'vendor'); 
+    setUserRole(role || 'user'); 
     
     return () => clearTimeout(loadingTimer);
   }, []);

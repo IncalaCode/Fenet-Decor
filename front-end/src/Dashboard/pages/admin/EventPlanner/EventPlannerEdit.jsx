@@ -13,12 +13,10 @@ const EventPlannerEdit = () => {
   return (
     <Edit>
       <SimpleForm>
-        <TextInput disabled source="id" />
-        <TextInput source="name" validate={required()} />
-        <TextInput source="email" validate={[required(), email()]} />
-        <TextInput source="phone" />
-        <DateInput source="createdAt" disabled />
-        <BooleanInput source="isActive" />
+           <TextInput source="name" validate={required()} />
+           <TextInput source="email" validate={[required(), email()]} />
+           <TextInput source="password" validate={[required(), email()]} />
+           <TextInput source="phone" type='tel' validate={[required()]} />
       </SimpleForm>
     </Edit>
   );

@@ -24,7 +24,6 @@ const VendorCreate = () => {
         ]} validate={required()} />
         <TextInput source="email" validate={[required(), email()]} />
         <TextInput source="phone" />
-        <BooleanInput source="isActive" defaultValue={true} />
       </SimpleForm>
     </Create>
   );

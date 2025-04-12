@@ -14,13 +14,9 @@ const userList = () => {
   return (
     <List>
       <Datagrid>
-        <TextField source="id" />
         <TextField source="name" />
-        <TextField source="type" />
         <EmailField source="email" />
         <TextField source="phone" />
-        <DateField source="createdAt" />
-        <BooleanField source="isActive" />
         <EditButton />
         <ShowButton />
       </Datagrid>

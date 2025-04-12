@@ -6,7 +6,7 @@ import {
 } from 'react-admin';
 
 
-const payemntList = () => {
+const userpayemntList = () => {
   return (
     <List>
       <Datagrid>
@@ -18,4 +18,4 @@ const payemntList = () => {
   );
 };
 
-export default payemntList;
+export default userpayemntList;

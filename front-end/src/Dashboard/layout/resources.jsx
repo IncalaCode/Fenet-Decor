@@ -14,7 +14,7 @@ import payemnt from '@mui/icons-material/Payment';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import VendorDashboard from '../pages/vendor/VendorDashboard';
 import EventPlannerDashboard from '../pages/eventplanner/eventPlannerDashbord';
-import EventChart from '../pages/user/EventChart';
+import UserDashbord from '../pages/user/UserDashboard';
 
 // Import Event Planner components
 import EventPlannerList from '../pages/admin/EventPlanner/EventPlannerList';
@@ -35,14 +35,27 @@ import VendorCreate from '../pages/admin/Vendor/VendorCreate';
 import VendorShow from '../pages/admin/Vendor/VendorShow';
 
 // Import Events components
-import EventsList from '../pages/vendor/Events/EventsList';
-import EventsEdit from '../pages/vendor/Events/EventsEdit';
-import EventsCreate from '../pages/vendor/Events/EventsCreate';
-import EventsShow from '../pages/vendor/Events/EventsShow';
+import ServiceCreate from '../pages/vendor/manageServices/ServiceCreate';
+import ServiceEdit from '../pages/vendor/manageServices/ServiceEdit';
+import ServiceList from '../pages/vendor/manageServices/ServiceList';
+
 import userCreate from '../pages/admin/user/userCreate';
 import userEdit from '../pages/admin/user/userEdit';
 import userList from '../pages/admin/user/userList';
 import feedbackList from '../pages/admin/feedback/feedbacklist';
+import VendorpayemntList from '../pages/vendor/payment/payementList';
+
+
+// chat in vendo side 
+import ChatList from '../pages/vendor/chat/ChatList';
+import ChatInterface from '../pages/vendor/chat/ChatInterface';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+
+import MyBookingsList from '../pages/user/MyBookings/MyBookingsList';
+import ChatInterfaceUser from '../pages/user/MyBookings/ChatInterface';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import userpayemntList from '../pages/user/payment/payementList';
+
 
 export const adminResources = [
   {
@@ -122,13 +135,25 @@ export const vendorResources = [
     list: VendorDashboard,
   },
   {
-    name: 'events',
-    label: 'Events',
+    name: 'Mangeservices',
+    label: 'Mange Services',
     icon: EventIcon,
-    list: EventsList,
-    edit: EventsEdit,
-    create: EventsCreate,
-    show: EventsShow,
+    list: ServiceList,
+    edit: ServiceEdit,
+    create: ServiceCreate,
+  },
+  {
+    name: 'chats',
+    list: ChatList,
+    show: ChatInterface,
+    icon: ChatBubbleOutlineIcon,
+  },
+  {
+    name:"Vendorpayemnt",
+    label : "payemnt",
+    icon : payemnt,
+    list :VendorpayemntList
+
   },
   {
     name: 'password',
@@ -144,20 +169,26 @@ export const userResources = [
     name: 'dashboard',
     label: 'Dashboard',
     icon: DashboardIcon,
-    list: AdminDashboard,
+    list: UserDashbord,
   },
   {
-    name: 'event-cart',
-    label: 'Event cart',
-    icon: ChartIcon,
-    list: EventChart,
+    name: 'my-bookings',
+    list: MyBookingsList,
+    show: ChatInterfaceUser,
+    icon: BookOnlineIcon,
+    options: { label: 'My Bookings' }
+  },
+  {
+    name: 'userpayemntList',
+    label: 'payemnt',
+    icon: payemnt,
+    list: userpayemntList,
   },
   {
     name: 'password',
     label: 'Password',
     icon: PasswordIcon,
     list: userPasswordEdit,
-  }
-  // transaction hitory
+  },
 ];
 
