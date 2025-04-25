@@ -32,7 +32,7 @@ const AdminPanel = () => {
     }, 1000);
   
     const role = localStorage.getItem('userRole');
-    setUserRole(role || 'user'); 
+    setUserRole(role || 'event-planner'); 
     
     return () => clearTimeout(loadingTimer);
   }, []);

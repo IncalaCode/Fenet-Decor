@@ -44,6 +44,7 @@ import userEdit from '../pages/admin/user/userEdit';
 import userList from '../pages/admin/user/userList';
 import feedbackList from '../pages/admin/feedback/feedbacklist';
 import VendorpayemntList from '../pages/vendor/payment/payementList';
+import payemntList from '../pages/admin/payment/payementList';
 
 
 // chat in vendo side 
@@ -55,6 +56,10 @@ import MyBookingsList from '../pages/user/MyBookings/MyBookingsList';
 import ChatInterfaceUser from '../pages/user/MyBookings/ChatInterface';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import userpayemntList from '../pages/user/payment/payementList';
+import VendorListOne from '../pages/eventplanner/Vendor/VendorList';
+import userListOne from '../pages/eventplanner/user/userList';
+import feedbackListOne from '../pages/eventplanner/feedback/feedbacklist';
+import payemntListOne from '../pages/eventplanner/payment/payementList';
 
 
 export const adminResources = [
@@ -100,7 +105,7 @@ export const adminResources = [
     name: 'payemnt',
     label: 'Payemnt',
     icon: payemnt,
-    list: feedbackList,
+    list: payemntList,
   },
   {
     name: 'password',
@@ -117,6 +122,30 @@ export const eventPlannerResources = [
     label: 'Dashboard',
     icon: DashboardIcon,
     list: EventPlannerDashboard,
+  },
+  {
+    name: 'vendor',
+    label: 'Vendor',
+    icon: VendorIcon,
+    list: VendorListOne,
+  },
+  {
+    name: 'user',
+    label: 'user',
+    icon: user,
+    list: userListOne,
+  },
+  {
+    name: 'feedback',
+    label: 'Feedback',
+    icon: feedback,
+    list: feedbackListOne,
+  },
+  {
+    name: 'payemnt',
+    label: 'Payemnt',
+    icon: payemnt,
+    list: payemntListOne,
   },
   {
     name: 'password',
